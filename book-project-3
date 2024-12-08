@@ -1,0 +1,25 @@
+const int sensorPin = A0;
+const float baseTemp = 20.0;
+
+void setup() {
+  Serial.begin(9600); // open a serial port
+
+  // Set pins 2 - 4 to OUTPUT with a value of LOW
+  for (int pin = 2; pin < 5; pin++) {
+    pinMode(pin, OUTPUT);
+    digitalWrite(pin, LOW);
+  }
+}
+
+void loop() {
+  int sensorVal = analogRead(sensorPin);        // Check value of sensor
+  Serial.print(sensorVal);                      // Print sensor value
+  float voltage =  (sensorVal / 1024.0) * 5.0;  // Get sensor voltage
+  Serial.print(" , Voltage: ");                 // Print sensor voltage
+  Serial.print(voltage);
+  float temperature = (voltage - .5) * 100;     // Get temperature from voltage
+  Serial.print(" , Degrees (C): ");
+  Serial.println(temperature);                  // Print temperature
+
+  delay(1);
+}
